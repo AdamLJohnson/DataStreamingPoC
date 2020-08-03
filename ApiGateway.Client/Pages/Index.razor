@@ -1,0 +1,119 @@
+﻿@page "/"
+@using System.Net.WebSockets
+@using System.Text
+@using System.Threading
+@using ApiGateway.Client.Models
+@implements IDisposable
+
+<h1>Hello, world!</h1>
+<h3>State: @webSocket.State</h3>
+
+<div class="row">
+    @if (webSocket.State == WebSocketState.Closed)
+    {
+        <div class="col-md-3"><button class="btn btn-success" @onclick="RestartSocket">Restart Socket</button></div>
+    }
+    @if (webSocket.State == WebSocketState.Open)
+    {
+        <div class="col-md-3"><button class="btn btn-success" @onclick="RestartSocket">Restart Socket</button></div>
+        <div class="col-md-3"><button class="btn btn-primary" @onclick="SendInsertTestRowAsync">Insert Test Rows</button></div>
+        <div class="col-md-3"><button class="btn btn-danger" @onclick="SendDeleteRowsAsync">Delete Rows</button></div>
+        <div class="col-md-3"><button class="btn btn-info" @onclick="clearList">Clear Table</button></div>
+    }
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Operation</th>
+                <th>UserId</th>
+                <th>Username</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in _list.OrderByDescending(x => x.metadata.timestamp))
+            {
+                <tr>
+                    <td>@item.metadata.operation</td>
+                    <td>@item.data.UserId</td>
+                    <td>@item.data.Username</td>
+                    <td>@item.data.FirstName</td>
+                    <td>@item.data.LastName</td>
+                    <td>@item.data.CreatedAtUtc</td>
+                </tr>
+
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@code {
+    CancellationTokenSource disposalTokenSource = new CancellationTokenSource();
+    ClientWebSocket webSocket = new ClientWebSocket();
+    List<KinesisUpdate> _list = new List<KinesisUpdate>();
+    string webSocketUrl = "****API Gateway WebSocket URL****";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await webSocket.ConnectAsync(new Uri(webSocketUrl), disposalTokenSource.Token);
+        _ = ReceiveLoop();
+    }
+
+    private void clearList(MouseEventArgs e)
+    {
+        _list.Clear();
+    }
+
+    async Task RestartSocket()
+    {
+        if (webSocket.State == WebSocketState.Open)
+            await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Bye", CancellationToken.None);
+
+        webSocket = new ClientWebSocket();
+        await webSocket.ConnectAsync(new Uri(webSocketUrl), disposalTokenSource.Token);
+        _ = ReceiveLoop();
+    }
+
+    async Task SendDeleteRowsAsync()
+    {
+        var request = new WebSocketRequest { Message = "DeleteRows" };
+        var dataToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(request)));
+        await webSocket.SendAsync(dataToSend, WebSocketMessageType.Text, true, disposalTokenSource.Token);
+    }
+
+    async Task SendInsertTestRowAsync()
+    {
+        var request = new WebSocketRequest { Message = "InsertTestRow" };
+        var dataToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(request)));
+        await webSocket.SendAsync(dataToSend, WebSocketMessageType.Text, true, disposalTokenSource.Token);
+    }
+
+    async Task ReceiveLoop()
+    {
+        var buffer = new ArraySegment<byte>(new byte[1024]);
+        while (!disposalTokenSource.IsCancellationRequested)
+        {
+            var received = await webSocket.ReceiveAsync(buffer, disposalTokenSource.Token);
+
+            if (received.MessageType != WebSocketMessageType.Close)
+            {
+                var receivedAsText = Encoding.UTF8.GetString(buffer.Array, 0, received.Count);
+                var data = Newtonsoft.Json.JsonConvert.DeserializeObject<KinesisUpdate>(receivedAsText);
+                _list.Add(data);
+            }
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        disposalTokenSource.Cancel();
+        _ = webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Bye", CancellationToken.None);
+    }
+}

@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kinesis-changes-lambda", "kinesis-changes-lambda\kinesis-changes-lambda.csproj", "{FF49ACB7-1496-418B-A305-DFAE34F5FBCD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway.OnConnect", "ApiGateway.OnConnect\ApiGateway.OnConnect.csproj", "{2E38C370-F619-44FD-9843-3A53A08F3E6D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway.OnDisconnect", "ApiGateway.OnDisconnect\ApiGateway.OnDisconnect.csproj", "{ABAF6077-3C45-4A1A-B5A5-88396D2B1571}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedStuff", "SharedStuff\SharedStuff.csproj", "{0A36BB51-0C7F-495A-BF6B-3F274F16444C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway.Client", "ApiGateway.Client\ApiGateway.Client.csproj", "{B4FE57B4-F073-49B6-8A09-67C866C61D57}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway.InsertTestRow", "ApiGateway.InsertTestRow\ApiGateway.InsertTestRow.csproj", "{E0B8A64F-A32A-44AA-920A-250817D36B13}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway.DeleteRows", "ApiGateway.DeleteRows\ApiGateway.DeleteRows.csproj", "{1EDBBD64-FF0A-48EF-8877-43B46125C816}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF49ACB7-1496-418B-A305-DFAE34F5FBCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF49ACB7-1496-418B-A305-DFAE34F5FBCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF49ACB7-1496-418B-A305-DFAE34F5FBCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF49ACB7-1496-418B-A305-DFAE34F5FBCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E38C370-F619-44FD-9843-3A53A08F3E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E38C370-F619-44FD-9843-3A53A08F3E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E38C370-F619-44FD-9843-3A53A08F3E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E38C370-F619-44FD-9843-3A53A08F3E6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABAF6077-3C45-4A1A-B5A5-88396D2B1571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABAF6077-3C45-4A1A-B5A5-88396D2B1571}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABAF6077-3C45-4A1A-B5A5-88396D2B1571}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABAF6077-3C45-4A1A-B5A5-88396D2B1571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A36BB51-0C7F-495A-BF6B-3F274F16444C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A36BB51-0C7F-495A-BF6B-3F274F16444C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A36BB51-0C7F-495A-BF6B-3F274F16444C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A36BB51-0C7F-495A-BF6B-3F274F16444C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4FE57B4-F073-49B6-8A09-67C866C61D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4FE57B4-F073-49B6-8A09-67C866C61D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4FE57B4-F073-49B6-8A09-67C866C61D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4FE57B4-F073-49B6-8A09-67C866C61D57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0B8A64F-A32A-44AA-920A-250817D36B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0B8A64F-A32A-44AA-920A-250817D36B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0B8A64F-A32A-44AA-920A-250817D36B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0B8A64F-A32A-44AA-920A-250817D36B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EDBBD64-FF0A-48EF-8877-43B46125C816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EDBBD64-FF0A-48EF-8877-43B46125C816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EDBBD64-FF0A-48EF-8877-43B46125C816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EDBBD64-FF0A-48EF-8877-43B46125C816}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E1ACA4D8-90CE-4420-8677-30DA3818D6D3}
+	EndGlobalSection
+EndGlobal
