@@ -31,3 +31,7 @@ A lambda function that subscribes to the Kinesis Data Stream
 ### SharedStuff
 
 Shared classes
+
+## Architecture Diagram
+
+![Architecture Diagram](https://raw.githubusercontent.com/AdamLJohnson/DataStreamingPoC/master/AWS%20Datastreams%20PoC.png)
